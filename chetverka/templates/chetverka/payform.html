@@ -1,0 +1,30 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+    <title>Checkout example for Bootstrap</title>
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/form-validation.css' %}" rel="stylesheet">
+  </head>
+
+  <body class="bg-light">
+ <h1 class="display-2">Итого {{ record.price }}</h1>
+      <div class="container">
+          <form method="post">
+              {% csrf_token %}
+              {{ telegramuser }}
+              {{ form.card_value }}<br>
+              {{ form.expired_month }}<br>
+              {{ form.expired_year }}<br>
+              {{ form.card_holder }}<br>
+               <button class="btn btn-success" type="submit">Continue to checkout</button>
+          </form>
+      </div>
+  </body>
+</html>
