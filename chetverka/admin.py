@@ -11,8 +11,8 @@ class TransactionSupervisor(admin.ModelAdmin):
 
 @admin.register(Ticket)
 class TicketSupervisor(admin.ModelAdmin):
-    list_display = ('id', 'ticket_type', 'ticket_number', 'transaction')
+    list_display = ('id', 'ticket_number', 'transaction', 'tovar')
 
 @admin.register(PricesAndProducts)
 class PricesAndTicketSupervisor(admin.ModelAdmin):
-    list_display = ('id', 'price', 'product', 'service', 'ticket')
+    list_display = ('id', 'price', 'product', 'service')

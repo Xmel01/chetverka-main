@@ -22,7 +22,6 @@
         <th scope="col">Владелец карты</th>
       <th scope="col">Дата и время транзакции</th>
       <th scope="col">Статус транзакции</th>
-        <th scope="col">Тип Билета</th>
       <th scope="col">Номер билета</th>
     </tr>
   </thead>
@@ -36,7 +35,6 @@
       <td>{{ record.transaction.bankcard.card_holder }}</td>
         <td>{{ record.transaction.tr_datetime|date:'Y-m-d H:i' }}</td>
       <td>{{ record.transaction.tr_status }}</td>
-      <td>{{ record.ticket_type }}</td>
       <td>{{ record.ticket_number }}</td>
     </tr>
   </tbody>

@@ -26,7 +26,6 @@
     <thead class="table-secondary">
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Тип Билета</th>
         <th scope="col">Номер билета</th>
         <th scope="col">ID транзакции</th>
         <th scope="col">#</th>
@@ -36,7 +35,6 @@
     <tbody class="table">
       <tr>
         <td>{{ dat.id }}</td>
-        <td>{{ dat.ticket_type}}</td>
         <td>{{ dat.ticket_number }}</td>
         <td>{{ dat.transaction }}</td>
         <td><a type="submit" class="btn btn-outline-success" href='{% url "details" dat.id %}'>Детализация</a></td>

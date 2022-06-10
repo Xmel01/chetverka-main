@@ -32,11 +32,9 @@ class Transaction(models.Model):
         verbose_name_plural = 'Транзакции'
 
 class Ticket(models.Model):
-    ticket_type = models.CharField('Название билета', max_length=15)
     ticket_number = models.CharField('Номер билета', max_length=10, unique=True)
-    ticket_datetime = models.DateTimeField('Дата и время отправления', auto_now=False)
-
     transaction = models.ForeignKey('Transaction', on_delete=models.CASCADE, blank=True, null=True)
+    tovar = models.ForeignKey('PricesAndProducts', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.id} '
@@ -50,7 +48,6 @@ class PricesAndProducts(models.Model):
     price = models.CharField('Цена', max_length=6)
     product = models.CharField('Товар', max_length=50)
     service = models.CharField('Описание товара', max_length=100)
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f'{self.id} ' + f'{self.price} ' + f'{self.product} ' + f'{self. service}'
