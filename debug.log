@@ -7735,3 +7735,6 @@ File C:\Users\Артем\AppData\Local\Programs\Python\Python310\Lib\site-packages\dj
 File C:\Users\Артем\AppData\Local\Programs\Python\Python310\Lib\site-packages\django\db\migrations\loader.py first seen with mtime 1651752104.1546671
 File C:\Users\Артем\AppData\Local\Programs\Python\Python310\Lib\site-packages\django\contrib\contenttypes\migrations\0002_remove_content_type_name.py first seen with mtime 1651752095.2938662
 File C:\Users\Артем\AppData\Local\Programs\Python\Python310\Lib\site-packages\django\contrib\admin\migrations\__init__.py first seen with mtime 1651752090.6584127
+File C:\Users\Артем\PycharmProjects\new\chetverka\troyka\settings.py previous mtime: 1655220752.6243577, current mtime: 1655224714.6338553
+C:\Users\Артем\PycharmProjects\new\chetverka\troyka\settings.py notified as changed. Signal results: [(<function template_changed at 0x0000022A3DF91000>, None), (<function translation_file_changed at 0x0000022A3E81C4C0>, None)].
+C:\Users\Артем\PycharmProjects\new\chetverka\troyka\settings.py changed, reloading.
