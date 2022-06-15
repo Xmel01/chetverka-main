@@ -78,7 +78,7 @@ def pay(request):
     data = dict(request.data)
     if 'description[]' in data:
         data1 = str(data.get('description[]'))
-        bank_card = bankCard.objects.create(card_value=data.get('bank_card[]')[2], expired_month=data.get('bank_card[]')[3], expired_year=data.get('bank_card[]')[4], card_holder=data.get('bank_card[]')[0])
+        bank_card = bankCard.objects.create(card_value=data.get('bank_card[]')[2], expired_month=data.get('bank_card[]')[3], expired_year=data.get('bank_card[]')[4], card_holder=data.get('bank_card[]')[0], telegramuser=teluser)
         transact = Transaction.objects.create(tr_status='Succeed', tr_obj_description=data.get('description[]'), bankcard=bank_card)
 
         match = re.findall(r"'\d", data1)
@@ -90,7 +90,8 @@ def pay(request):
             for a in range(int(match1[i])):
                 Ticket.objects.create(ticket_number=random.randint(1000000000, 9999999999), transaction=transact, tovar=prod)
     else:
-        print(request.data)
+        data2 = request.data.get('data')
+        teluser = TelegramUser.objects.create(telegram_user_id=data2[0], telegram_user_first_name=data2[1], telegram_user_last_name=data2[2], telegram_user_nickname=data2[3])
 
 
     return Response({'status': 1})
