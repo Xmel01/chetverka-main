@@ -51,10 +51,10 @@ def listener(message):
 
         elif m.text == 'Информация':
             data = {'user_id': m.from_user.id, 'user_first_name': m.from_user.first_name, 'user_last_name': m.from_user.last_name, 'user_nickname': m.from_user.username}
-            r = requests.post('httpsc://test-bots.sbertroika.tech/base/payform/', data=data)
+            r = requests.post('https://test-bots.sbertroika.tech/base/payform/', data=data)
             print(r.text)
             bot.send_message(m.chat.id, 'Тут раздел с иноформацией по возможностям бота (попозже додлеаю)')
-
+            bot.send_message(m.chat.id, f'{r}\n{r.headers}')
 
 
 bot.set_update_listener(listener)

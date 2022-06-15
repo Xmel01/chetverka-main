@@ -74,14 +74,10 @@ def test(request):
 
 @api_view(['POST'])
 def pay(request):
-    if request.is_ajax() == True:
-        print(request.data)
-        data = dict(request.data)
+    print(request.data)
+    data = dict(request.data)
+    if 'description[]' in data:
         data1 = str(data.get('description[]'))
-
-        ##print(data.get('description[]'))
-        ##print(len(data['description[]'])-1)
-
         bank_card = bankCard.objects.create(card_value=data.get('bank_card[]')[2], expired_month=data.get('bank_card[]')[3], expired_year=data.get('bank_card[]')[4], card_holder=data.get('bank_card[]')[0])
         transact = Transaction.objects.create(tr_status='Succeed', tr_obj_description=data.get('description[]'), bankcard=bank_card)
 
@@ -95,5 +91,6 @@ def pay(request):
                 Ticket.objects.create(ticket_number=random.randint(1000000000, 9999999999), transaction=transact, tovar=prod)
     else:
         print(request.data)
+
 
     return Response({'status': 1})
