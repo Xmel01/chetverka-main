@@ -1,11 +1,12 @@
 var counter = 0; // счетчик общего количества добавленных продуктов
 
 var tg = window.Telegram.WebApp;
-tg.MainButton = undefined;
+
 tg.MainButton.text = "Купить";
-tg.MainButton.textcolor = "F55353";
-tg.MainButton.color = "#143F6B";
-tg.MainButton.show();
+tg.MainButton.textcolor = "#77F932";
+tg.MainButton.color = "#FFFFFF";
+tg.MainButton.onClick
+tg.MainButton.hide();
 
 $(document).ready(function(){
     $('.badge').text(counter); // устанавливает счетчик добавленных продуктов при загрузке страницы
@@ -36,6 +37,7 @@ $(document).on('click', '[id^=cell-btn]', function() { // собитие при 
     $('div[rel=item-container]').prepend('<div class="alert alert-success" id="basket-item '+ button_id + '">1 ' + card + '</div>');
     $('.badge').text(counter);
     addElement();
+    tg.MainButton.show()
     $('#body').append('<button class="btn-success rounded-top" onclick="payFunction()" id="payment">Оплатить</button>')
     $('.btn-group').css('margin-bottom', '85px')
 })
@@ -50,7 +52,7 @@ function payFunction(){
 
 
 function proceed(){
-    console.log(window.Telegram.WebApp.initData)
+    //console.log(window.Telegram.WebApp.initData)
     let need_array = $('#modal-body').children('[id^=basket-item]');
     let spisok = [];
     for (let s=0;s<need_array.length;s++){
@@ -77,7 +79,7 @@ function proceed(){
                 'data': data,
                 'description': spisok,
                 'bank_card': bankCard,
-
+                'tg_user_data': tg.initData,
             },
             success: function() {
                 alert('done');
