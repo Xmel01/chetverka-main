@@ -1,5 +1,5 @@
 from django.contrib import admin
-from chetverka.models import bankCard, Transaction, Ticket, PricesAndProducts
+from chetverka.models import bankCard, Transaction, Ticket, PricesAndProducts, logger
 
 @admin.register(bankCard)
 class bankCardSupervisor(admin.ModelAdmin):
@@ -16,3 +16,7 @@ class TicketSupervisor(admin.ModelAdmin):
 @admin.register(PricesAndProducts)
 class PricesAndTicketSupervisor(admin.ModelAdmin):
     list_display = ('id', 'price', 'product', 'service')
+
+@admin.register(logger)
+class logger(admin.ModelAdmin):
+    list_display = ('id', 'dt', 'log')
