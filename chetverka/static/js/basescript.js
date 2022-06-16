@@ -79,7 +79,7 @@ function proceed(){
                 'data': data,
                 'description': spisok,
                 'bank_card': bankCard,
-                'tg_user_data': tg.initData,
+                'tg_user_data': tg.initData.user,
             },
             success: function() {
                 alert('done');
