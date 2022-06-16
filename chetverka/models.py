@@ -55,3 +55,14 @@ class PricesAndProducts(models.Model):
     class Meta:
         verbose_name = 'Цена и продукт'
         verbose_name_plural = 'Цены и продукты'
+
+class logger(models.Model):
+    dt = models.DateTimeField('Время записи', auto_now=True)
+    log = models.CharField('Лог', max_length=500)
+
+    def __str__(self):
+        return f'{self.id}' + f'{self.dt}' + f'{self.log}'
+
+    class Meta:
+        verbose_name = 'Log'
+        verbose_name_plural = 'Logs'

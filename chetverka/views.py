@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from chetverka.models import Ticket, PricesAndProducts, Transaction, bankCard
+from chetverka.models import Ticket, PricesAndProducts, Transaction, bankCard, logger
 from django.views.generic import DetailView
 from chetverka.forms import bankCardForm
 from teletroyka.models import TelegramUser
@@ -74,6 +74,7 @@ def test(request):
 
 @api_view(['POST'])
 def pay(request):
+    logger.objects.create(log=request.data)
     print(request.data)
     data = dict(request.data)
 
