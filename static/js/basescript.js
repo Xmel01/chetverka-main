@@ -1,4 +1,12 @@
 var counter = 0; // счетчик общего количества добавленных продуктов
+
+var tg = window.Telegram.WebApp;
+tg.MainButton = undefined;
+tg.MainButton.text = "Купить";
+tg.MainButton.textcolor = "F55353";
+tg.MainButton.color = "#143F6B";
+tg.MainButton.show();
+
 $(document).ready(function(){
     $('.badge').text(counter); // устанавливает счетчик добавленных продуктов при загрузке страницы
 
@@ -24,11 +32,12 @@ $(document).on('click', '[id^=cell-btn]', function() { // собитие при 
     counter++; // увеличиваем общий счетчик на 1
     let button_id = ($(this).attr('id')).split(' ')[1]; // получаем id нажатой кнопки "добавить"
     let card = $(this).parents(1).children('.cardTitle').text(); // даем значению card название карточки
-    $(this).parent().html('<div class="row"><button class="btn btn-outline-success col-sm-4" id="plus ' + button_id +'"><span>+</span></button><button onclick="addElement()" class="btn btn-outline-danger col-sm-4" id="minus ' + button_id +'"><span>-</span></button><div class="alert-primary col-sm-4" id="counter'+ button_id + '">1</div></div>');
+    $(this).parent().html('<div class="row"><button class="btn btn-outline-success col-sm-4" id="plus ' + button_id +'"><span>+</span></button><button onclick="addElement()" class="btn btn-outline-danger col-sm-4" id="minus ' + button_id +'"><span>-</span></button><div class="alert-primary col-sm-4"  id="counter'+ button_id + '">1</div></div>');
     $('div[rel=item-container]').prepend('<div class="alert alert-success" id="basket-item '+ button_id + '">1 ' + card + '</div>');
     $('.badge').text(counter);
     addElement();
     $('#body').append('<button class="btn-success rounded-top" onclick="payFunction()" id="payment">Оплатить</button>')
+    $('.btn-group').css('margin-bottom', '85px')
 })
 
 function payFunction(){
@@ -41,6 +50,7 @@ function payFunction(){
 
 
 function proceed(){
+    console.log(window.Telegram.WebApp.initData)
     let need_array = $('#modal-body').children('[id^=basket-item]');
     let spisok = [];
     for (let s=0;s<need_array.length;s++){
@@ -58,7 +68,6 @@ function proceed(){
     $.ajax({
             url: "payform/",
             method: "post",
-            //dataType: 'json',
 
             headers: {
               'X-CSRFToken': csrftoken
@@ -68,18 +77,19 @@ function proceed(){
                 'data': data,
                 'description': spisok,
                 'bank_card': bankCard,
+
             },
             success: function() {
                 alert('done');
 
             }
         })
-    //window.location.reload()
 }
 
-$(document).on('click', '[id^=plus]', function(){
-    counter++;
+$(document).on('click', '[id^=plus]', function(){ // функция на событие нажатия кнопки +
+    counter++; // увеличиваем общий счетчик товаров
     let plus_id = ($(this).attr('id')).split(' ')[1];
+    console.log(plus_id)
     let count = parseInt($(this).siblings('.alert-primary').text()); // берем количество товара на карточке и переводим в Integer
     $(this).siblings('.alert-primary').text(count+1); // Прибавляем число
     let all_baskets = $('[rel="item-container"]').children();
@@ -91,6 +101,10 @@ $(document).on('click', '[id^=plus]', function(){
            basket.text(container);
            addElement();
            }
+        if ($('button').is('#payment')===false){
+            $('#body').append('<button class="btn-success rounded-top" onclick="payFunction()" id="payment">Оплатить</button>')
+            $('.btn-group').css('margin-bottom', '85px')
+        }
     }
 
      $('.badge').text(counter);// Кол-во товаров всего (иконка рядом с корзиной)
@@ -99,17 +113,21 @@ $(document).on('click', '[id^=plus]', function(){
 $(document).on('click', '[id^=minus]', function(){
     counter--;
     $('.badge').text(counter);
-    let plus_id = ($(this).attr('id')).split(' ')[1];
+    let minus_id = ($(this).attr('id')).split(' ')[1];
     let count = parseInt($(this).siblings('.alert-primary').text()); // берем количество товара на карточке и переводим в Integer
-    $(this).siblings('.alert-primary').text(count-1); // Прибавляем число
+    $(this).siblings('.alert-primary').text(count-1); // Убавляем число
     let all_baskets = $('[rel="item-container"]').children();
     for (var i = 0; i < all_baskets.length; i++) {
         let basket = $(all_baskets[i]);
-        if ('basket-item '+ plus_id === basket.attr('id')) {
+        if ('basket-item '+ minus_id === basket.attr('id')) {
            let string = basket.text().split(' ')[0];
+           alert(string);
            let container = basket.text().replace(string, count-1);
+           alert(container);
            if (count === 1){
                basket.remove();
+               $('#payment').remove()
+               $('.btn-group').css('margin-bottom', '35px')
            }
            else{
                basket.text(container);
@@ -117,4 +135,5 @@ $(document).on('click', '[id^=minus]', function(){
         }
     }
 });
+
 
