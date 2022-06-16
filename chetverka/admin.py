@@ -19,4 +19,4 @@ class PricesAndTicketSupervisor(admin.ModelAdmin):
 
 @admin.register(logger)
 class logger(admin.ModelAdmin):
-    list_display = ('id', 'dt', 'log')
+    list_display = ('id', 'dt', 'log', 'error')

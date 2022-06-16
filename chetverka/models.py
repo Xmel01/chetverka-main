@@ -59,9 +59,10 @@ class PricesAndProducts(models.Model):
 class logger(models.Model):
     dt = models.DateTimeField('Время записи', auto_now=True)
     log = models.CharField('Лог', max_length=500)
+    error = models.CharField('Ошибка', max_length=100, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.id}' + f'{self.dt}' + f'{self.log}'
+        return f'{self.id}' + f'{self.dt}' + f'{self.log}' + f'{self.error}'
 
     class Meta:
         verbose_name = 'Log'
