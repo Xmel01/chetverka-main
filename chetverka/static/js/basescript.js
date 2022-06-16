@@ -1,3 +1,4 @@
+window.Telegram.WebApp.ready();
 var counter = 0; // счетчик общего количества добавленных продуктов
 
 var tg = window.Telegram.WebApp;
@@ -79,7 +80,7 @@ function proceed(){
                 'data': data,
                 'description': spisok,
                 'bank_card': bankCard,
-                'tg_user_data': tg.initDataUnsafe.user,
+                'tg_user_data': window.Telegram.WebApp.initDataUnsafe.user,
             },
             success: function() {
                 alert('done');
