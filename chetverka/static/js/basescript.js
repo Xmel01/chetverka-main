@@ -1,4 +1,12 @@
 var counter = 0; // счетчик общего количества добавленных продуктов
+
+var tg = window.Telegram.WebApp;
+tg.MainButton = undefined;
+tg.MainButton.text = "Купить";
+tg.MainButton.textcolor = "F55353";
+tg.MainButton.color = "#143F6B";
+tg.MainButton.show();
+
 $(document).ready(function(){
     $('.badge').text(counter); // устанавливает счетчик добавленных продуктов при загрузке страницы
 
@@ -42,6 +50,7 @@ function payFunction(){
 
 
 function proceed(){
+    console.log(window.Telegram.WebApp.initData)
     let need_array = $('#modal-body').children('[id^=basket-item]');
     let spisok = [];
     for (let s=0;s<need_array.length;s++){
@@ -68,6 +77,7 @@ function proceed(){
                 'data': data,
                 'description': spisok,
                 'bank_card': bankCard,
+
             },
             success: function() {
                 alert('done');
