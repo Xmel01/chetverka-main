@@ -29,7 +29,7 @@ $(document).on('click', '[id^=cell-btn]', function() { // собитие при 
     counter++; // увеличиваем общий счетчик на 1
     let button_id = ($(this).attr('id')).split(' ')[1]; // получаем id нажатой кнопки "добавить"
     let card = $(this).parents(1).children('.cardTitle').text(); // даем значению card название карточки
-    $(this).parent().html('<div class="row"><button class="btn btn-outline-success col-sm-4" id="plus ' + button_id +'"><span>+</span></button><button onclick="addElement()" class="btn btn-outline-danger col-sm-4" id="minus ' + button_id +'"><span>-</span></button><div class="alert-primary col-sm-4"  id="counter'+ button_id + '">1</div></div>');
+    $(this).parent().html('<div class="row"><button class="btn btn-outline-success col-sm" id="plus ' + button_id +'"><span>+</span></button><button onclick="addElement()" class="btn btn-outline-danger col-sm" id="minus ' + button_id +'"><span>-</span></button><div class="alert-primary col-sm"  id="counter'+ button_id + '">1</div></div>');
     $('div[rel=item-container]').prepend('<div class="alert alert-success" id="basket-item '+ button_id + '">1 ' + card + '</div>');
     $('.badge').text(counter);
     addElement();
@@ -77,8 +77,6 @@ function proceed(){
                 'tg_user_data': JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user),
             },
             success: function() {
-                alert('done');
-
             }
         })
 }
@@ -109,6 +107,7 @@ $(document).on('click', '[id^=plus]', function(){ // функция на соб�
 
 $(document).on('click', '[id^=minus]', function(){
     counter--;
+    console.log($(this).siblings("div[id^='counter']").text())
     $('.badge').text(counter);
     let minus_id = ($(this).attr('id')).split(' ')[1];
     let count = parseInt($(this).siblings('.alert-primary').text()); // берем количество товара на карточке и переводим в Integer
@@ -118,9 +117,7 @@ $(document).on('click', '[id^=minus]', function(){
         let basket = $(all_baskets[i]);
         if ('basket-item '+ minus_id === basket.attr('id')) {
            let string = basket.text().split(' ')[0];
-           alert(string);
            let container = basket.text().replace(string, count-1);
-           alert(container);
            if (count === 1){
                basket.remove();
                $('#payment').remove()
@@ -129,8 +126,11 @@ $(document).on('click', '[id^=minus]', function(){
            else{
                basket.text(container);
            }
+           if (parseInt($(this).siblings("div[id^='counter']").text()) === 0){
+               $(this).parent().parent().html('<button id="cell-btn {{p.id}}" class="btn btn-outline-primary" onClick="addElement()"><span>Добавить</span></button>')
+           }
+           }
         }
-    }
 });
 
 
