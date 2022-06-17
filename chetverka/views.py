@@ -79,8 +79,8 @@ def pay(request):
     data = dict(request.data)
 
     data1 = str(data.get('description[]'))
+    user_id = re.match(r"\d{9,10}", str(data))
     try:
-        user_id = re.match(r"\d{9,10}",str(data))
         teleuser = TelegramUser.objects.get(telegram_user_id=user_id)
         bank_card = bankCard.objects.create(card_value=data.get('bank_card[]')[2], expired_month=data.get('bank_card[]')[3], expired_year=data.get('bank_card[]')[4], card_holder=data.get('bank_card[]')[0], telegramuser=teleuser)
         transact = Transaction.objects.create(tr_status='Succeed', tr_obj_description=data.get('description[]'), bankcard=bank_card)
@@ -95,7 +95,7 @@ def pay(request):
                 Ticket.objects.create(ticket_number=random.randint(1000000000, 9999999999), transaction=transact, tovar=prod)
         logger.objects.create(log=request.data, error=None)
     except Exception as e:
-        logger.objects.create(log=request.data, error=e)
+        logger.objects.create(log=user_id, error=e)
 
 
     return Response({'status': 1})
