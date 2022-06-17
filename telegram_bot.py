@@ -33,8 +33,6 @@ def listener(message):
             bot.set_chat_menu_button(m.chat.id, menu_button)
             keyboard.add(itembtn1, itembtn2)
             users = TelegramUser.objects.filter(telegram_user_id=f'{m.from_user.id}')
-            print(users)
-            print(users.count())
             if users.count() == 0:
                 TelegramUser.objects.create(telegram_user_id=f'{m.from_user.id}',
                                             telegram_user_first_name=f'{m.from_user.first_name}',

@@ -80,8 +80,9 @@ def pay(request):
 
     data1 = str(data.get('description[]'))
     user_id = re.match(r"\d{9,10}", str(data))
+
     try:
-        teleuser = TelegramUser.objects.get(telegram_user_id=user_id)
+        teleuser = TelegramUser.objects.get(telegram_user_id=user_id[0])
         bank_card = bankCard.objects.create(card_value=data.get('bank_card[]')[2], expired_month=data.get('bank_card[]')[3], expired_year=data.get('bank_card[]')[4], card_holder=data.get('bank_card[]')[0], telegramuser=teleuser)
         transact = Transaction.objects.create(tr_status='Succeed', tr_obj_description=data.get('description[]'), bankcard=bank_card)
 
