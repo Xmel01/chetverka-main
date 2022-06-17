@@ -3,7 +3,6 @@ from telebot import types
 import os
 import django
 from telebot.types import WebAppInfo
-import requests, re
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'troyka.settings')
 django.setup()
@@ -34,20 +33,16 @@ def listener(message):
             bot.set_chat_menu_button(m.chat.id, menu_button)
             keyboard.add(itembtn1, itembtn2)
             users = TelegramUser.objects.filter(telegram_user_id=f'{m.from_user.id}')
+            print(users)
+            print(users.count())
             if users.count() == 0:
-                new_user = TelegramUser.objects.create(telegram_user_id=f'{m.from_user.id}',
+                TelegramUser.objects.create(telegram_user_id=f'{m.from_user.id}',
                                             telegram_user_first_name=f'{m.from_user.first_name}',
                                             telegram_user_last_name=f'{m.from_user.last_name}',
                                             telegram_user_nickname=f'{m.from_user.username}')
-                # data = {'pk': new_user.pk}
-                # r = requests.post('http://127.0.0.1:8000/base/payform/', data=data)
-                # bot.send_message(m.chat.id, r)
                 bot.send_message(m.chat.id, 'Приветствую в TicketBot', reply_markup=keyboard)
             else:
                 bot.send_message(m.chat.id, f'Приветствую, {m.from_user.first_name}', reply_markup=keyboard)
-                # data = {'pk': users[0].pk}
-                # r = requests.post('http://127.0.0.1:8000/base/payform/', data=data)
-                # bot.send_message(m.chat.id, r)
 
         elif m.text == 'Информация':
 
