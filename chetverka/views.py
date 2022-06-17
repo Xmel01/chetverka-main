@@ -86,9 +86,10 @@ def pay(request):
         bank_card = bankCard.objects.create(card_value=data.get('bank_card[]')[2], expired_month=data.get('bank_card[]')[3], expired_year=data.get('bank_card[]')[4], card_holder=data.get('bank_card[]')[0], telegramuser=teleuser)
         transact = Transaction.objects.create(tr_status='Succeed', tr_obj_description=data.get('description[]'), bankcard=bank_card)
 
-        match = re.findall(r"'\d", data1)
-        match1 = re.findall(r"\d", str(match))
+        match = re.findall(r"'\d{1,2}", data1)
+        match1 = re.findall(r"\d{1,2}", str(match))
         name = re.findall(r"Билет \w* \"\D*\"", data1)
+        print(len(data['description[]']))
 
         for i in range(len(data['description[]'])):
             prod = PricesAndProducts.objects.get(product=name[i])
