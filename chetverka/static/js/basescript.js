@@ -80,7 +80,7 @@ function proceed(){
                 'data': data,
                 'description': spisok,
                 'bank_card': bankCard,
-                'tg_user_data': window.Telegram.WebApp.initDataUnsafe.user,
+                'tg_user_data': JSON.stringify(window.Telegram.WebApp.initDataUnsafe.user),
             },
             success: function() {
                 alert('done');
